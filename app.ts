@@ -66,12 +66,9 @@ class Board {
       return new Row(index, 10);
     })
     this.element.append(...this.rows.map((row) => row.element));
-
-
-
   }
-
 }
+
 document
 .getElementById('game')?.append(new Board().element);
 
