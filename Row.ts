@@ -17,8 +17,6 @@ export default class Row {
       const grooveId = rowLength*id + index;
       return new Groove(grooveId, boardRef);
     })
-
-    console.log("Row constructor called.");
     this.element.append(...this.grooves.map((groove) => groove.element));
   }
 }

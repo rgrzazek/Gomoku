@@ -13,6 +13,6 @@ consecutive pieces of your colour. Players take turns placing a stone
 anywhere on the board until a player wins or the board is full. Winning lines
 may be in a row, column or diagonal.
 
-I am writing this app as a university project. In its current state it just
-draws a board and allows mouse clicks to change the colour of a game piece,
-but it will be completed soon.
+I am writing this app as a university project. The game will detect a winner
+or call a draw if the board is full, but there is no sign of this in the UI
+yet.

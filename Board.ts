@@ -9,8 +9,8 @@ enum STATUS {
 
 export default class Board {
   element: HTMLDivElement;
-  numRows: number = 15;
-  numCols: number = 30;
+  numRows: number = 5;
+  numCols: number = 5;
   numGrooves: number = this.numRows*this.numCols;
   rows: Row[];
   currentPlayer: STATUS = STATUS.WHITE;
@@ -29,7 +29,20 @@ export default class Board {
     let place: Groove = this.getSeatById(seatId);
     if (place.status !== STATUS.EMPTY) return;
     place.updatePiece(this.currentPlayer);
-    if (this.checkWin(this.currentPlayer)) console.log("Winner");
+    if (this.checkWin(this.currentPlayer)) {
+      console.log("Winner");
+      return; // not a draw
+    }
+    
+    if (!this.rows.some(
+      (row) => row.grooves.some(
+        (groove) => groove.status === STATUS.EMPTY
+      )
+    )) {
+      console.log("Draw");
+      return; // not the next player's turn
+    };
+
     this.currentPlayer = 
       this.currentPlayer===STATUS.WHITE ? STATUS.BLACK : STATUS.WHITE;
 
@@ -42,7 +55,7 @@ export default class Board {
   }
 
   // Not optimised, brute force the whole board for whoever placed a piece
-  checkWin (player :STATUS): boolean {
+  checkWin (player: STATUS): boolean {
     let count: number = 0; // try to get the counter to 5
     let target: number = 5;
     // Check rows
