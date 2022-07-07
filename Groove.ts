@@ -21,7 +21,7 @@ export default class Groove {
     this.element.classList.add(this.status.toLowerCase());
 
     this.element.addEventListener('click', () => {
-      boardRef.placeStone(id);
+      boardRef.placeStone(this);
     });
 
   }
