@@ -1,11 +1,6 @@
-import Groove from './Groove';
 import Row from './Row';
 
-enum STATUS {
-  EMPTY = 'empty',
-  BLACK = 'black',
-  WHITE = 'white',
-}
+
 
 export default class Board {
   element: HTMLDivElement;
