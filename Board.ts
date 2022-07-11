@@ -31,14 +31,15 @@ export default class Board {
     );
     this.element.append(...this.rows.map((row) => row.element));
     this.gameOver = false;
+    this.message();
   }
 
   placeStone (place: Groove) {
     if (this.gameOver || place.status !== STATUS.EMPTY) return;
+
     place.updatePiece(this.currentPlayer);
     if (this.checkWin(this.currentPlayer)) {
-      document.getElementById("messages")?.
-        append("Game over. "+this.currentPlayer+" wins.");
+      this.message("Game over. "+this.currentPlayer+" wins.");
         this.gameOver = true;
       return;
     }
@@ -48,14 +49,21 @@ export default class Board {
         (groove) => groove.status === STATUS.EMPTY
       )
     )) {
-      document.getElementById("messages")?.append("This is a draw");
+      this.message("This is a draw");
       this.gameOver = true;
       return; // not the next player's turn
     };
 
     this.currentPlayer = 
       this.currentPlayer===STATUS.WHITE ? STATUS.BLACK : STATUS.WHITE;
+    this.message();
+  }
 
+  message (text: string = "Next move: " + this.currentPlayer) {
+    const el = document.getElementById("messages");
+    if (!el) return;
+    // Print the message given as parameter or default message of who's next
+    el.innerHTML = text;
   }
 
   /** 
