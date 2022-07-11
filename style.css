@@ -1,11 +1,3 @@
-body {
-  background-color: #f5efe0;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .header {
   font-size: 2.5rem;
   padding: 1rem;
@@ -16,6 +8,14 @@ body {
   text-align: center;
 }
 
+body {
+  background-color: #f5efe0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main {
   flex: 1;
   padding: 1rem;
@@ -23,19 +23,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .board {
   display: flex;
-  width: fit-content;
   padding: 1rem;
   flex-direction: column;
   row-gap: 0.5rem;
-  background-color: #824522;
+  background-color: #a06246;
   border-radius: 0.5rem;
-  border-width: 0.5rem;
-  border-style: solid;
-  border-color: #602009;
+  border: 0.5rem solid #824522;
+  box-shadow: 5px 10px 20px 0px rgba(0, 0, 0, 0.9);
+  margin-bottom: 2rem;
 }
 
 .row {
@@ -46,24 +46,75 @@ body {
 .groove {
   height: 2rem;
   width: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 1rem;
+  border-radius: 50%;
   box-sizing: border-box;
   cursor: pointer;
-}
-
-
-.white{
-  background-color: wheat;
-  cursor: not-allowed;
-}
-
-.black {
-  background-color: #301510;
-  cursor: not-allowed;
 }
 
 #messages {
   font-size: 2rem;
   padding: 1rem;
+}
+
+#controlForm button {
+  width: 100%;
+}
+
+/* Technique taken from https://dev.to/ryandsouza13/creating-a-fake-3d-effect-in-css-using-a-single-div-17a */
+.empty{
+  background: linear-gradient(#77412a 0%, #874f3b 10%, #8f573e 50%, #975c40 100%);
+  border: 1px solid #905642;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.empty::before{
+  content: "";
+  height: 1.8rem;
+  width: 1.8rem;
+  background: linear-gradient(#805035 0%, #905540 60%, #af6952 100%);
+  border-radius: 50%;
+  filter: blur(0.2rem);
+}
+
+.white{
+  background: linear-gradient(#fff 0%, #ccc 10%, #aaa 50%, #999 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: not-allowed;
+}
+
+.white::before{
+  content: "";
+  height: 1.8rem;
+  width: 1.8rem;
+  background: linear-gradient(#fff 0%, #aaa 60%, #666 100%);
+  border-radius: 50%;
+  filter: blur(0.2rem);
+}
+
+
+.black{
+  background: linear-gradient(#555 0%, #333 10%, #111 50%, #000 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: not-allowed;
+
+}
+
+.black::before{
+  content: "";
+  height: 1.8rem;
+  width: 1.8rem;
+  background: linear-gradient(#555 0%, #222 60%, #000 100%);
+  border-radius: 50%;
+  filter: blur(0.2rem);
 }

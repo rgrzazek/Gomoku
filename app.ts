@@ -1,4 +1,6 @@
 import Board from './Board';
+const minRows = 5;
+const minCols = 5;
 
 type inputs = {
   rows: number,
@@ -14,8 +16,8 @@ function validate(): inputs {
   let rows: number = parseInt((<HTMLInputElement>document.getElementById("rows"))?.value);
   let cols: number = parseInt((<HTMLInputElement>document.getElementById("cols"))?.value);
 
-  if (rows<5) rows = 5;
-  if (cols<5) cols = 5;  
+  if (!rows || rows<minRows) rows = minRows;
+  if (!cols || cols<minCols) cols = minCols;
   return {
     rows: rows, 
     cols: cols
