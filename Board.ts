@@ -22,6 +22,11 @@ export default class Board {
     this.reset(this.numRows, this.numCols)    
   }
 
+  /**
+   * Make a new board with no pieces on it at the specified size
+   * @param rows number of rows on the game
+   * @param cols number of columns on the game
+   */
   reset (rows: number, cols: number) {
     this.element.innerHTML="";
     this.numRows = rows;
@@ -34,16 +39,26 @@ export default class Board {
     this.message();
   }
 
+  /**
+   * Attempt to place a stone after a user click. Side effects include
+   * checking if the player has won / drawn the game and updating game
+   * messages to the user.
+   * 
+   * @param place reference to the Groove that was clicked
+   */
   placeStone (place: Groove) {
+    // Ignore invalid move or update the board
     if (this.gameOver || place.status !== STATUS.EMPTY) return;
-
     place.updatePiece(this.currentPlayer);
+
+    // Handle a win
     if (this.checkWin(this.currentPlayer)) {
-      this.message("Game over. "+this.currentPlayer+" wins.");
+      this.message("Game over, "+this.currentPlayer+" wins.");
         this.gameOver = true;
       return;
     }
     
+    // Handle a draw
     if (!this.rows.some(
       (row) => row.grooves.some(
         (groove) => groove.status === STATUS.EMPTY
@@ -51,14 +66,21 @@ export default class Board {
     )) {
       this.message("This is a draw");
       this.gameOver = true;
-      return; // not the next player's turn
+      return;
     };
 
+    // Change player and update the message on screen
     this.currentPlayer = 
       this.currentPlayer===STATUS.WHITE ? STATUS.BLACK : STATUS.WHITE;
     this.message();
   }
 
+  /**
+   * Draw game related messages on the page
+   * 
+   * @param text Message to display. Displays next player info by default
+   *  if no parameter is supplied.
+   */
   message (text: string = "Next move: " + this.currentPlayer) {
     const el = document.getElementById("messages");
     if (!el) return;
@@ -71,6 +93,7 @@ export default class Board {
    * Brute force the whole board for whoever placed a piece
    * @param player The player that we are checking for a win
    *
+   * @return Whether the player named in the parameter has won
    */
   checkWin (player: STATUS): boolean {
     let count: number = 0; // try to get the counter to 5
@@ -114,7 +137,7 @@ export default class Board {
       } else {
         col++; // row[0], walk along the top
       }
-      count = 0; // reset after each line
+      count = 0; // reset count after each line
     }
 
     // Check all diagonals in a down-left direction
@@ -134,7 +157,7 @@ export default class Board {
       } else {
         col--; // row[0], walk along the top
       }
-      count = 0;// reset after each line
+      count = 0; // reset count after each line
     }
     // default: not a win
     return false;
