@@ -1,6 +1,9 @@
 # Mac auto generated
 .DS_Store
 
+# submission file
+*.bundle
+
 # Logs
 logs
 *.log

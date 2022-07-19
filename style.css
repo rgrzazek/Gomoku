@@ -19,6 +19,8 @@ body {
 .main {
   flex: 1;
   padding: 1rem;
+  margin: auto;
+  width: min-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -57,6 +59,11 @@ body {
 }
 
 #controlForm button {
+  width: 100%;
+}
+
+#blurb{
+  position: relative;
   width: 100%;
 }
 

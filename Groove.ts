@@ -10,7 +10,7 @@ export default class Groove {
   element: HTMLDivElement;
   id: number;
   status: STATUS;
-  boardRef: Board;
+  boardRef: Board; // the board is our event handler
 
   constructor(id: number, boardRef: Board) {
     this.boardRef = boardRef;

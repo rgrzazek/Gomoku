@@ -17,12 +17,16 @@
       <div id="controlForm">
         <p>
           <label for="rows">How many rows?</label>
-          <input type="number" min="5" size="3" name="rows" id="rows" value=15 />
+          <input type="number" min="5" max="50" size="3" name="rows" id="rows" value=15 />
           <label for="cols">How many columns?</label>
-          <input type="number" min="5" size="3" name="cols" id="cols" value=15 />
+          <input type="number" min="5" max="50" size="3" name="cols" id="cols" value=15 />
         </p><p>
           <button id="resetButton">Reset Game</button>
         </p>
+      </div>
+      <div id="blurb">
+        <h3>About the game</h3>
+        Gomuko is a two player board game, often played on a Go board. Both players choose a colour (black goes first) and then take turns placing one of their stones on the board. The aim is to get 5 stones in a row. Getting a row of more than 5 stones by filling a gap is called an overline, and is not a valid way to win the game.
       </div>
 
     </main>

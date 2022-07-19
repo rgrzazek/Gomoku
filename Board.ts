@@ -13,7 +13,7 @@ export default class Board {
   numCols: number = 15;
   numGrooves: number = this.numRows*this.numCols;
   rows: Row[] = [];
-  currentPlayer: STATUS = STATUS.WHITE;
+  currentPlayer: STATUS = STATUS.BLACK;
   gameOver: boolean = false;
 
   constructor() {
@@ -31,6 +31,7 @@ export default class Board {
     this.element.innerHTML="";
     this.numRows = rows;
     this.numCols = cols;
+    this.currentPlayer = STATUS.BLACK;
     this.rows = Array.from({length: this.numRows}).map((_,index) => 
       new Row(index, this.numCols, this)
     );
@@ -104,20 +105,28 @@ export default class Board {
         if (this.rows[row].grooves[i].status === player)
           count++;
         else 
+          // Exactly 5 in a row because we found the other colour
+          if (count===target) return true;
           count = 0;
-        if (count>=target) return true;
+
       }
+      // Exactly 5 in a row because we reached the end of a line
+      if (count===target) return true;
       count = 0; // reset after each row
     }
     // Check columns
     for (let col: number = 0; col < this.numCols; col++) {
       for (let i: number = 0; i < this.numRows; i++) {
-        if (this.rows[i].grooves[col].status === player)
+        if (this.rows[i].grooves[col].status === player) {
           count++;
-        else 
+        } else { 
+          // Exactly 5 in a row because we found the other colour
+          if (count===target) return true;
           count = 0;
-        if (count>=target) return true;
+        }
       }
+      // Exactly 5 in a row because we reached the end of a line
+      if (count===target) return true;
       count = 0; // reset after each column
     }
     // Check all diagonals in a down-right direction
@@ -125,19 +134,24 @@ export default class Board {
     let col: number = 0;
     while (col<=this.numCols-target) {
       for (let i: number = 0; col+i<this.numCols && row+i<this.numRows; i++) {
-        if (this.rows[row+i].grooves[col+i].status === player)
+        if (this.rows[row+i].grooves[col+i].status === player) {
           count++;
-        else
+        } else {
+          // Exactly 5 in a row because we found the other colour
+          if (count===target) return true;
           count = 0;
-        if (count>=target) return true;
+        }
       }
+      // Exactly 5 in a row because we reached the end of a line
+      if (count==target) return true;
+      count = 0; // reset count after each line
+
       // Line is checked, move to next diagonal
       if (row>0) {
         row--; // walk up left edge
       } else {
         col++; // row[0], walk along the top
       }
-      count = 0; // reset count after each line
     }
 
     // Check all diagonals in a down-left direction
@@ -145,19 +159,24 @@ export default class Board {
     col = this.numCols-1;
     while (col>=target-1) {
       for (let i: number = 0; col-i >= 0 && row+i<this.numRows; i++) {
-        if (this.rows[row+i].grooves[col-i].status === player)
+        if (this.rows[row+i].grooves[col-i].status === player) {
           count++;
-        else
+        } else {
+          // Exactly 5 in a row because we found the other colour
+          if (count===target) return true;
           count = 0;
-        if (count>=target) return true;
+        }
       }
+      // Exactly 5 in a row because we reached the end of a line
+      if (count===target) return true;
+      count = 0; // reset count after each line
+
       // Line is checked, move to next diagonal
       if (row>0) {
         row--; // walk up right edge
       } else {
         col--; // row[0], walk along the top
       }
-      count = 0; // reset count after each line
     }
     // default: not a win
     return false;
